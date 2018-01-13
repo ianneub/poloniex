@@ -79,8 +79,10 @@ module Poloniex
     post 'cancelOrder', currencyPair: currency_pair, orderNumber: order_number
   end
 
-  def self.move_order( order_number, rate )
-    post 'moveOrder', orderNumber: order_number, rate: rate
+  def self.move_order( order_number, rate, amount = nil )
+    options = {orderNumber: order_number, rate: rate}
+    options[amount: amount] if amount
+    post 'moveOrder', options
   end
 
   def self.withdraw( currency, amount, address )
